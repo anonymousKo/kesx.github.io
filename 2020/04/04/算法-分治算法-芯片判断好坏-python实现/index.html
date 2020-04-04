@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/kesx.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="问题描述有n片芯片，已知好芯片比坏芯片至少多1片。现在需要通过测试从中找出1片好芯片，测试方法为：将2片芯片放到测试台上，2片芯片互相测试并报告测试结果（即好或者坏）；其中，好芯片的报告是正确的，坏芯片的报告是不可靠的（即可能正确、也可能错误）。为保证使用较少的测试次数就能从中找出1片好芯片，请设计一个分治算法解决上述问题。 分治算法思路初始想法是：将n片芯片两两一组分成[n&#x2F;2]组，每组测试1次">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法 分治算法 芯片判断好坏 python实现">
+<meta property="og:url" content="http://yoursite.com/2020/04/04/%E7%AE%97%E6%B3%95-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95-%E8%8A%AF%E7%89%87%E5%88%A4%E6%96%AD%E5%A5%BD%E5%9D%8F-python%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="问题描述有n片芯片，已知好芯片比坏芯片至少多1片。现在需要通过测试从中找出1片好芯片，测试方法为：将2片芯片放到测试台上，2片芯片互相测试并报告测试结果（即好或者坏）；其中，好芯片的报告是正确的，坏芯片的报告是不可靠的（即可能正确、也可能错误）。为保证使用较少的测试次数就能从中找出1片好芯片，请设计一个分治算法解决上述问题。 分治算法思路初始想法是：将n片芯片两两一组分成[n&#x2F;2]组，每组测试1次">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-04T12:24:00.000Z">
+<meta property="article:modified_time" content="2020-04-04T12:49:10.289Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/04/04/%E7%AE%97%E6%B3%95-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95-%E8%8A%AF%E7%89%87%E5%88%A4%E6%96%AD%E5%A5%BD%E5%9D%8F-python%E5%AE%9E%E7%8E%B0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Hexo</title>
+  <title>算法 分治算法 芯片判断好坏 python实现 | Hexo</title>
   
 
 
@@ -139,9 +143,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -157,10 +162,9 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/kesx.github.io/2020/04/04/%E7%AE%97%E6%B3%95-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95-%E8%8A%AF%E7%89%87%E5%88%A4%E6%96%AD%E5%A5%BD%E5%9D%8F-python%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">算法 分治算法 芯片判断好坏 python实现</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          算法 分治算法 芯片判断好坏 python实现
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -184,7 +188,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有n片芯片，已知好芯片比坏芯片至少多1片。现在需要通过测试从中找出1片好芯片，测试方法为：将2片芯片放到测试台上，2片芯片互相测试并报告测试结果（即好或者坏）；其中，好芯片的报告是正确的，坏芯片的报告是不可靠的（即可能正确、也可能错误）。为保证使用较少的测试次数就能从中找出1片好芯片，请设计一个分治算法解决上述问题。</p>
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有n片芯片，已知好芯片比坏芯片至少多1片。现在需要通过测试从中找出1片好芯片，测试方法为：将2片芯片放到测试台上，2片芯片互相测试并报告测试结果（即好或者坏）；其中，好芯片的报告是正确的，坏芯片的报告是不可靠的（即可能正确、也可能错误）。为保证使用较少的测试次数就能从中找出1片好芯片，请设计一个分治算法解决上述问题。</p>
 <h2 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>初始想法是：将n片芯片两两一组分成[n/2]组，每组测试1次，通过第一轮的[n/2]次测试淘汰部分的芯片，剩下的芯片构成一个规模较小的子问题进入第二轮。当测试的芯片不超过3片（即子问题规模小于等于3），并且好芯片比坏芯片至少多1片，那么只要测试1次就可以找出好芯片。</p>
 <table>
 <thead>
@@ -245,205 +249,30 @@
 
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>测试次数为O(n).(含轮空处理)<br>时间复杂度W(n)=W(n/2)+O(n)<br>当芯片个数为2或1时，无需测试。W(1)=W(2)=0<br>当芯片个数为3时，只需测试一次。W(3)=1<br>可以得到W(n) = O(n)，比起蛮力算法，分治算法效率上又明显提高。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/hehe/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/kesx.github.io/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/kesx.github.io/2020/04/03/hehe/" class="post-title-link" itemprop="url">hehe</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-03 23:42:18" itemprop="dateCreated datePublished" datetime="2020-04-03T23:42:18+08:00">2020-04-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/kesx.github.io/2020/04/03/hehe/" rel="prev" title="hehe">
+      <i class="fa fa-chevron-left"></i> hehe
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/article-title/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/kesx.github.io/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/kesx.github.io/2020/04/03/article-title/" class="post-title-link" itemprop="url">article title</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-03 13:28:33" itemprop="dateCreated datePublished" datetime="2020-04-03T13:28:33+08:00">2020-04-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/kesx.github.io/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/kesx.github.io/2020/04/03/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-03 12:58:37" itemprop="dateCreated datePublished" datetime="2020-04-03T12:58:37+08:00">2020-04-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -496,6 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分治算法"><span class="nav-number">2.</span> <span class="nav-text">分治算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-number">2.2.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python代码实现"><span class="nav-number">2.3.</span> <span class="nav-text">python代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">2.4.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
